@@ -1,0 +1,9 @@
+FUNCTION calcRaw takes time, moves
+    rawScore = time * moves
+    return rawScore
+
+FUNCTION calcScore takes rawScore
+    score = 500,000 - rawScore
+    if score < 0
+        score = 0
+    return score
