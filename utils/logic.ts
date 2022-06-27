@@ -40,6 +40,10 @@ export const findItem = (
 };
 
 export const findNearby = (array: Array<Array<number>>, curItem: Position) => {
+  //We have to check whether each item exists before accessing it
+  //We can do this by checking whether the index of the item we
+  //are trying to find is at the start of the end of the array
+  //If it meets either of these conditions, we return null
   const left =
     curItem.column > 0
       ? {
