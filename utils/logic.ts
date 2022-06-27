@@ -5,5 +5,17 @@ interface Position {
 
 
 export const swap = (array: Array<Array<number>>, position1: Position, position2: Position) => {
-    return array
+    //Copy array so we don't mutate the original
+    //We have to use JSON.parse and stringify because of JS weirdness
+    const arr = JSON.parse(JSON.stringify(array));
+    try {
+        const temp = arr[position1.row][position1.column];
+        arr[position1.row][position1.column] = arr[position2.row][position2.column];
+        arr[position2.row][position2.column] = temp
+
+    } catch (error) {
+        console.error(error)
+    }
+
+    return arr
 }
