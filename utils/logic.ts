@@ -35,6 +35,7 @@ export const findItem = (
       }
     });
   });
+  //Return nothing if there is no item
   //@ts-ignore
   return position || null;
 };
