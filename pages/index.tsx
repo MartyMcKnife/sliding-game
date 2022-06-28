@@ -1,11 +1,12 @@
-import type { NextPage } from 'next'
+import type { NextPage } from "next";
+import Header from "../components/Head/Header";
 
 const Home: NextPage = () => {
   return (
-    <div className="font-bold text-3xl">
-      Hi!
+    <div className="bg-gradient-to-l from-blue-200 to-blue-100 min-h-screen w-full">
+      <Header />
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
