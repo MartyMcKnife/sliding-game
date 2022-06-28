@@ -3,7 +3,7 @@ import Header from "../components/Head/Header";
 
 const Home: NextPage = () => {
   return (
-    <div className="bg-gradient-to-l from-blue-200 to-blue-100 min-h-screen w-full">
+    <div className="bg-blue-50 min-h-screen w-full">
       <Header />
     </div>
   );
