@@ -111,3 +111,26 @@ export const moveDirection = (
     return swap(arr, itemPos, elm.position);
   }
 };
+
+export const shuffle2DArray = (array: Array<Array<number>>, times = 40) => {
+  //Copy array - we let this be mutable as we are changing it 40 times
+  let arr: Array<Array<number>> = JSON.parse(JSON.stringify(array));
+
+  for (let i = 0; i <= 40; i++) {
+    const empSpace = findItem(array, 0);
+
+    //Find nearby and remove values that aren't valid
+    const nearby = Object.fromEntries(
+      Object.entries(findNearby(array, empSpace)).filter((i) => i != null)
+    );
+
+    //Pick random item from object
+    const keys = Object.keys(nearby);
+    // @ts-ignore
+    nearby[keys[Math.floor(Math.random() * keys.length)]];
+
+    //Make the move!
+    arr = swap(arr, empSpace, nearby.position);
+  }
+  return arr;
+};

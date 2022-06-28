@@ -1,4 +1,10 @@
-import { swap, findItem, findNearby, moveDirection } from "./../../utils/logic";
+import {
+  swap,
+  findItem,
+  findNearby,
+  moveDirection,
+  shuffle2DArray,
+} from "./../../utils/logic";
 
 const testData = {
   array: [
@@ -118,5 +124,15 @@ describe("move Direction", () => {
       [3, 4, 5],
       [6, 7, 8],
     ]);
+  });
+});
+
+describe("shuffle", () => {
+  test("should shuffle the array", () => {
+    expect(shuffle2DArray(testData.array)).not.toBe(testData.array);
+  });
+
+  test("should shuffle between rows", () => {
+    expect(shuffle2DArray(testData.array)[0]).not.toContain([1, 2, 3]);
   });
 });
