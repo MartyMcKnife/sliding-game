@@ -1,4 +1,4 @@
-import { swap, findItem, findNearby } from "./../../utils/logic";
+import { swap, findItem, findNearby, moveDirection } from "./../../utils/logic";
 
 const testData = {
   array: [
@@ -96,5 +96,27 @@ describe("Find Nearby", () => {
         },
       },
     });
+  });
+});
+
+describe("move Direction", () => {
+  test("should return the same array if no move exists", () => {
+    expect(moveDirection(testData.array, 1, "top")).toStrictEqual(
+      testData.array
+    );
+  });
+
+  test("should return same array if not swapping with a 0", () => {
+    expect(moveDirection(testData.array, 4, "top")).toStrictEqual(
+      testData.array
+    );
+  });
+
+  test("should work as expected (moves in specified direction)", () => {
+    expect(moveDirection(testData.array, 1, "left")).toStrictEqual([
+      [1, 0, 2],
+      [3, 4, 5],
+      [6, 7, 8],
+    ]);
   });
 });

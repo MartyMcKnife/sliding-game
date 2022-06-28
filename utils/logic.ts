@@ -3,6 +3,17 @@ interface Position {
   column: number;
 }
 
+interface NearbyItem {
+  item: number;
+  position: Position;
+}
+interface Nearby {
+  top: NearbyItem | null;
+  bottom: NearbyItem | null;
+  left: NearbyItem | null;
+  right: NearbyItem | null;
+}
+
 export const swap = (
   array: Array<Array<number>>,
   position1: Position,
@@ -40,7 +51,10 @@ export const findItem = (
   return position || null;
 };
 
-export const findNearby = (array: Array<Array<number>>, curItem: Position) => {
+export const findNearby = (
+  array: Array<Array<number>>,
+  curItem: Position
+): Nearby => {
   //We have to check whether each item exists before accessing it
   //We can do this by checking whether the index of the item we
   //are trying to find is at the start of the end of the array
@@ -75,4 +89,25 @@ export const findNearby = (array: Array<Array<number>>, curItem: Position) => {
       : null;
 
   return { left, right, top, bottom };
+};
+
+export const moveDirection = (
+  array: Array<Array<number>>,
+  element: number,
+  direction: "top" | "down" | "left" | "right"
+) => {
+  //Copy array so as to not mutate the original
+  const arr: Array<Array<number>> = JSON.parse(JSON.stringify(array));
+
+  const itemPos = findItem(arr, element);
+  const nearbyItems = findNearby(arr, itemPos);
+
+  const elm = nearbyItems[direction as keyof Nearby];
+
+  if (!elm || elm.item > 0) {
+    // Return unmodified array as action is illegal
+    return arr;
+  } else {
+    return swap(arr, itemPos, elm.position);
+  }
 };

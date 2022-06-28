@@ -42,15 +42,6 @@ FUNCTION moveDirection takes array, element
     CALL Swap with array, itemsLowest.position, index
     RETURN array
 
-//Shuffle 1D Array
-FUNCTION shuffle1D takes array
-    FOR each item in array
-        i = itemIndex
-        j = FLOOR(RANDOM * i + 1)
-        temp = array[i]
-        array[i] = array[j]
-        array[j] = temp
-
 //Shuffle 2D Array
 FUNCTION shuffle2D takes array, times (default = 40)
     FOR each time in times
