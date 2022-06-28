@@ -27,7 +27,7 @@ export const swap = (
     arr[position1.row][position1.column] = arr[position2.row][position2.column];
     arr[position2.row][position2.column] = temp;
   } catch (error) {
-    console.error(error);
+    console.error(error, array, position1, position2);
   }
 
   return arr;
@@ -67,7 +67,7 @@ export const findNearby = (
         }
       : null;
   const right =
-    curItem.column < array[0].length
+    curItem.column < array[0].length - 1
       ? {
           item: array[curItem.row][curItem.column + 1],
           position: { row: curItem.row, column: curItem.column + 1 },
@@ -81,7 +81,7 @@ export const findNearby = (
         }
       : null;
   const bottom =
-    curItem.row < array.length
+    curItem.row < array.length - 1
       ? {
           item: array[curItem.row + 1][curItem.column],
           position: { row: curItem.row + 1, column: curItem.column },
@@ -116,21 +116,39 @@ export const shuffle2DArray = (array: Array<Array<number>>, times = 40) => {
   //Copy array - we let this be mutable as we are changing it 40 times
   let arr: Array<Array<number>> = JSON.parse(JSON.stringify(array));
 
-  for (let i = 0; i <= 40; i++) {
-    const empSpace = findItem(array, 0);
+  for (let i = 0; i <= times; i++) {
+    const empSpace = findItem(arr, 0);
 
     //Find nearby and remove values that aren't valid
-    const nearby = Object.fromEntries(
-      Object.entries(findNearby(array, empSpace)).filter((i) => i != null)
-    );
+    if (empSpace) {
+      const nearby = Object.fromEntries(
+        Object.entries(findNearby(arr, empSpace)).filter(([_, v]) => v != null)
+      );
 
-    //Pick random item from object
-    const keys = Object.keys(nearby);
-    // @ts-ignore
-    nearby[keys[Math.floor(Math.random() * keys.length)]];
-
-    //Make the move!
-    arr = swap(arr, empSpace, nearby.position);
+      //Pick random item from object
+      const keys = Object.keys(nearby);
+      // @ts-ignore
+      const nearChosen = nearby[keys[Math.floor(Math.random() * keys.length)]];
+      //Make the move!
+      arr = swap(arr, empSpace, nearChosen.position);
+    }
   }
   return arr;
+};
+
+export const genGame = (rows: number, columns: number, shuffle = true) => {
+  // let total = rows * columns;
+  let start = 0;
+  let array = [];
+
+  for (let i = rows - 1; i >= 0; i--) {
+    let tempArr = [];
+    for (let j = columns - 1; j >= 0; j--) {
+      tempArr.push(start);
+      start += 1;
+    }
+    array.push(tempArr);
+  }
+
+  return shuffle ? shuffle2DArray(array) : array;
 };

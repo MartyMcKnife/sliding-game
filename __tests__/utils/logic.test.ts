@@ -4,6 +4,7 @@ import {
   findNearby,
   moveDirection,
   shuffle2DArray,
+  genGame,
 } from "./../../utils/logic";
 
 const testData = {
@@ -134,5 +135,43 @@ describe("shuffle", () => {
 
   test("should shuffle between rows", () => {
     expect(shuffle2DArray(testData.array)[0]).not.toContain([1, 2, 3]);
+  });
+});
+
+describe("generate Game", () => {
+  test("should generate a base board", () => {
+    expect(genGame(2, 2, false)).toStrictEqual([
+      [0, 1],
+      [2, 3],
+    ]);
+  });
+
+  test("should generate a 1x1 (honestly why)", () => {
+    expect(genGame(1, 1, false)).toStrictEqual([[0]]);
+  });
+
+  test("should handle uneven amount of rows", () => {
+    expect(genGame(2, 1, false)).toStrictEqual([[0], [1]]);
+  });
+
+  test("should handle uneven amount of columns", () => {
+    const out = genGame(1, 2, false);
+    console.log(`Uneven Cols : ${out}`);
+    expect(out).toStrictEqual([[0, 1]]);
+  });
+
+  test("should shuffle the board after generation", () => {
+    const out = genGame(2, 2);
+    console.log(`Shuffled 2x2: ${out}`);
+    expect(out).not.toBe([
+      [0, 1],
+      [2, 3],
+    ]);
+  });
+
+  test("should still shuffle with odd amounts of row/cols", () => {
+    const out = genGame(1, 2);
+    console.log(`Shuffled 1x2: ${out}`);
+    expect(out).not.toBe([[0, 1]]);
   });
 });
