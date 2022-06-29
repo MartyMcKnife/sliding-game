@@ -5,20 +5,15 @@ const dbConnect = async () => {
     return;
   }
 
-  const uri = process.env.mongo_url;
+  const uri = process.env.mongo_uri;
   if (uri) {
     console.log("Attempting to connect to  Mongoose");
-    try {
-      const connection = mongoose.connect(uri, {
-        useNewUrlParser: true,
-        useFindAndModify: false,
-        useUnifiedTopology: true,
-      });
-      console.log("Success!");
-      return connection;
-    } catch (error) {
-      console.error(error);
-    }
+
+    const connection = mongoose.connect(uri, {
+      sslValidate: false,
+    });
+    console.log("Success!");
+    return connection;
   } else {
     throw new Error("No URI provided for Mongoose");
   }

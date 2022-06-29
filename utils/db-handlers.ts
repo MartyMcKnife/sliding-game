@@ -1,3 +1,4 @@
+import { calcActual } from "./leaderboardCalcs";
 import Level from "../models/level";
 import Leaderboard from "../models/leaderboard";
 
@@ -15,12 +16,28 @@ export const createLevel = async (
   image?: string
 ) => {
   await dbConnect();
-  await Level.create({
-    levelID: nanoid(6),
-    rows,
-    columns,
-    image,
-  });
+
+  //Store our id in a variable so we can return it
+  const levelID = nanoid(6);
+
+  // Check to see if a level with the same settings has already been stored in the DB
+
+  //We return the level object so we have a copy of the object
+
+  const results = await Level.findOne({ rows, columns, image });
+
+  if (results) {
+    return results;
+  } else {
+    await Level.create({
+      levelID,
+      rows,
+      columns,
+      image,
+    });
+
+    return { levelID, rows, columns, image };
+  }
 };
 
 export const getLeaderboard = async () => {
@@ -32,13 +49,12 @@ export const addToBoard = async (
   username: string,
   time: number,
   moves: number,
-  levelID: number
+  levelID: string
 ) => {
   await dbConnect();
   await Leaderboard.create({
     username,
-    time,
-    moves,
+    score: calcActual(time, moves),
     levelID,
   });
 };
