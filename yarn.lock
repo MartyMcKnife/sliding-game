@@ -6193,6 +6193,11 @@ use-onclickoutside@^0.4.1:
     are-passive-events-supported "^1.1.1"
     use-latest "^1.2.1"
 
+use-sse@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/use-sse/-/use-sse-2.0.1.tgz#8c4c389d310aa878f8b61c4ecd47a2c5d6f4cfd5"
+  integrity sha512-fsq+7VklgNiHEU2FqpI/DijlX5DoveOFtyazrA/8vXuvzf5lPyXRWcSWDZef6NsKdh9cqtIfKD7rMkgcmFHxUA==
+
 util-deprecate@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/util-deprecate/-/util-deprecate-1.0.2.tgz#450d4dc9fa70de732762fbd2d4a28981419a0ccf"

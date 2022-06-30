@@ -139,10 +139,10 @@ export const shuffle2DArray = (array: Array<Array<number>>, times = 40) => {
 export const genGame = (rows: number, columns: number, shuffle = true) => {
   // let total = rows * columns;
   let start = 0;
-  let array = [];
+  let array: Array<Array<number>> = [];
 
   for (let i = rows - 1; i >= 0; i--) {
-    let tempArr = [];
+    let tempArr: Array<number> = [];
     for (let j = columns - 1; j >= 0; j--) {
       tempArr.push(start);
       start += 1;
@@ -151,4 +151,16 @@ export const genGame = (rows: number, columns: number, shuffle = true) => {
   }
 
   return shuffle ? shuffle2DArray(array) : array;
+};
+
+export const checkSolved = (
+  array: Array<Array<number>>,
+  element: number,
+  reference: Array<Array<number>>
+) => {
+  //Get relevant positions
+  const curPos = findItem(array, element);
+  const correctPos = findItem(reference, element);
+  //Logical check - will return true/false depending on evaluation
+  return curPos === correctPos;
 };
