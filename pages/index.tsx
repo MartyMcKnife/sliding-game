@@ -1,23 +1,24 @@
 import type { NextPage, GetServerSideProps } from "next";
-import {
-  addToBoard,
-  createLevel,
-  getLeaderboard,
-  getLevel,
-} from "../utils/db-handlers";
+import { createLevel, getLeaderboard, getLevel } from "../utils/db-handlers";
 import Header from "../components/Head/Header";
+import LeaderboardButton from "../components/Leaderboard/LearboardButton";
 import { ILeaderboard } from "models/leaderboard";
 import { ILevel } from "models/level";
 
 interface Props {
-  leaderboard: ILeaderboard;
-  settings: ILevel;
+  leaderboardU: string;
+  settingsU: string;
 }
 
-const Home: NextPage = () => {
+const Home: NextPage<Props> = ({ leaderboardU, settingsU }) => {
+  const leaderboard: ILeaderboard[] = JSON.parse(leaderboardU);
+  const settings: ILevel = JSON.parse(settingsU);
   return (
-    <div className="bg-blue-50 min-h-screen w-full">
+    <div className="bg-blue-50 min-h-screen w-full font-site">
       <Header />
+      <section id="info">
+        <LeaderboardButton leaderboard={leaderboard} />
+      </section>
     </div>
   );
 };
@@ -33,8 +34,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   return {
     props: {
-      leaderboard: JSON.stringify(leaderboard),
-      settings: JSON.stringify(settings),
+      leaderboardU: JSON.stringify(leaderboard),
+      settingsU: JSON.stringify(settings),
     },
   };
 };

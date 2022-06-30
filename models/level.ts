@@ -1,6 +1,6 @@
-import mongoose, { Document, model, Schema } from "mongoose";
+import mongoose, { model, Schema } from "mongoose";
 
-export interface ILevel extends Document {
+export interface ILevel {
   levelID: string;
   rows: number;
   columns: number;

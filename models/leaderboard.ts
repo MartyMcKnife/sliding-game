@@ -1,6 +1,6 @@
-import mongoose, { Document, model, Schema } from "mongoose";
+import mongoose, { model, Schema } from "mongoose";
 
-export interface ILeaderboard extends Document {
+export interface ILeaderboard {
   username: string;
   score: number;
   levelID: string;
