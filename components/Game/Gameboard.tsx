@@ -37,13 +37,15 @@ export default function Gameboard({ level, setMoves, setSuccess }: Props) {
       ));
     });
 
-    //Define our classes for the amount of cols + rows
-    const cols = `grid-cols-${level.columns}`;
-    const rows = `grid-rows-${level.rows}`;
-
     return (
       <div
-        className={`p-4 rounded-lg shadow-md bg-white mt-4 grid ${cols} ${rows} gap-4 w-max mx-auto`}
+        className={`p-4 rounded-lg shadow-md bg-white mt-6 grid gap-4 w-max mx-auto`}
+        style={{
+          //Define the amount of cols + rows
+
+          gridTemplateColumns: `repeat(${level.columns}, minmax(0, 1fr))`,
+          gridTemplateRows: `repeat(${level.rows}, minmax(0, 1fr))`,
+        }}
       >
         {els.flat()}
       </div>
