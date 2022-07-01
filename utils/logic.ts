@@ -112,8 +112,8 @@ export const moveDirection = (
   }
 };
 
-export const shuffle2DArray = (array: Array<Array<number>>, times = 40) => {
-  //Copy array - we let this be mutable as we are changing it 40 times
+export const shuffle2DArray = (array: Array<Array<number>>, times = 50) => {
+  //Copy array - we let this be mutable as we are changing it 50 times
   let arr: Array<Array<number>> = JSON.parse(JSON.stringify(array));
 
   for (let i = 0; i <= times; i++) {
@@ -137,8 +137,8 @@ export const shuffle2DArray = (array: Array<Array<number>>, times = 40) => {
 };
 
 export const genGame = (rows: number, columns: number, shuffle = true) => {
-  // let total = rows * columns;
-  let start = 0;
+  //Start at 1 to avoid 0 being first item
+  let start = 1;
   let array: Array<Array<number>> = [];
 
   for (let i = rows - 1; i >= 0; i--) {
@@ -149,6 +149,9 @@ export const genGame = (rows: number, columns: number, shuffle = true) => {
     }
     array.push(tempArr);
   }
+
+  //Before performing the return, we need to replace the last item with a 0, to make the game work
+  array[array.length - 1][array[0].length - 1] = 0;
 
   return shuffle ? shuffle2DArray(array) : array;
 };

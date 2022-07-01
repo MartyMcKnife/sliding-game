@@ -142,8 +142,8 @@ describe("shuffle", () => {
 describe("generate Game", () => {
   test("should generate a base board", () => {
     expect(genGame(2, 2, false)).toStrictEqual([
-      [0, 1],
-      [2, 3],
+      [1, 2],
+      [3, 0],
     ]);
   });
 
@@ -152,28 +152,28 @@ describe("generate Game", () => {
   });
 
   test("should handle uneven amount of rows", () => {
-    expect(genGame(2, 1, false)).toStrictEqual([[0], [1]]);
+    expect(genGame(2, 1, false)).toStrictEqual([[1], [0]]);
   });
 
   test("should handle uneven amount of columns", () => {
     const out = genGame(1, 2, false);
     console.log(`Uneven Cols : ${out}`);
-    expect(out).toStrictEqual([[0, 1]]);
+    expect(out).toStrictEqual([[1, 0]]);
   });
 
   test("should shuffle the board after generation", () => {
     const out = genGame(2, 2);
     console.log(`Shuffled 2x2: ${out}`);
     expect(out).not.toBe([
-      [0, 1],
-      [2, 3],
+      [1, 2],
+      [3, 0],
     ]);
   });
 
   test("should still shuffle with odd amounts of row/cols", () => {
     const out = genGame(1, 2);
     console.log(`Shuffled 1x2: ${out}`);
-    expect(out).not.toBe([[0, 1]]);
+    expect(out).not.toBe([[1, 0]]);
   });
 });
 
