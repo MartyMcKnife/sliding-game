@@ -5,6 +5,7 @@ import {
   moveDirection,
   shuffle2DArray,
   genGame,
+  checkSolved,
 } from "./../../utils/logic";
 
 const testData = {
@@ -173,5 +174,34 @@ describe("generate Game", () => {
     const out = genGame(1, 2);
     console.log(`Shuffled 1x2: ${out}`);
     expect(out).not.toBe([[0, 1]]);
+  });
+});
+
+describe("check solved", () => {
+  test("should return false if in wrong spot", () => {
+    expect(
+      checkSolved(
+        [
+          [0, 2, 1],
+          [3, 4, 5],
+          [6, 7, 8],
+        ],
+        2,
+        testData.array
+      )
+    ).toBe(false);
+  });
+  test("should return true if in right spot", () => {
+    expect(
+      checkSolved(
+        [
+          [0, 2, 1],
+          [3, 4, 5],
+          [6, 7, 8],
+        ],
+        0,
+        testData.array
+      )
+    ).toBe(true);
   });
 });

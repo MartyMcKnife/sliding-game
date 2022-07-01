@@ -24,7 +24,7 @@ const Home: NextPage<Props> = ({ leaderboardU, settingsU }) => {
   return (
     <div className="bg-blue-50 min-h-screen w-full font-site">
       <Header />
-      <main className="max-w-xl mx-auto mt-8">
+      <main className="max-w-xl mx-auto mt-4">
         <section id="info" className="flex justify-between items-end">
           <LeaderboardButton leaderboard={leaderboard} />
           <ScoreContainer moves={moves} time={time} setTime={setTime} />

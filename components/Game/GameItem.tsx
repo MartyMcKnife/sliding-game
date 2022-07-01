@@ -15,13 +15,15 @@ export default function GameItem({ num, gameBoard, reference }: Props) {
   }, [gameBoard, num, reference]);
   return (
     <div
-      className={
-        "rounded-lg w-64 h-64 flex item-center justify-center " + isCorrect
-          ? "bg-teal-600"
-          : "bg-blue-600"
-      }
+      className={`rounded-lg w-20 h-20 flex items-center justify-center ${
+        num === 0
+          ? "border-2 border-blue-600"
+          : isCorrect
+          ? "bg-teal-700"
+          : "bg-blue-700"
+      }`}
     >
-      <h1 className="font-bold font-3xl text-white">{num}</h1>
+      {num > 0 && <h1 className="text-4xl text-white font-semibold">{num}</h1>}
     </div>
   );
 }

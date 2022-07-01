@@ -162,5 +162,5 @@ export const checkSolved = (
   const curPos = findItem(array, element);
   const correctPos = findItem(reference, element);
   //Logical check - will return true/false depending on evaluation
-  return curPos === correctPos;
+  return curPos.column === correctPos.column && curPos.row === correctPos.row;
 };
