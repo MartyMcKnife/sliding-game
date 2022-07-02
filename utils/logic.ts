@@ -108,9 +108,10 @@ export const moveDirection = (
   );
 
   let elm: NearbyItem | null;
-
   if (direction) {
+    console.log(`Direction: ${direction}`);
     elm = nearbyItems[direction as keyof Nearby];
+    console.log(elm);
   } else {
     //Find lowest item in nearbyItems
     const lowest = Object.values(nearby).reduce((lowest, item) => {
@@ -120,15 +121,15 @@ export const moveDirection = (
         return lowest;
       }
     });
-    console.log(lowest);
     elm = lowest;
   }
-
-  if (!elm || elm.item > 0) {
-    // Return unmodified array as action is illegal
-    return arr;
+  console.log(elm);
+  if (elm) {
+    if (element === 0 || elm.item === 0) {
+      return swap(arr, itemPos, elm.position);
+    }
   } else {
-    return swap(arr, itemPos, elm.position);
+    return arr;
   }
 };
 

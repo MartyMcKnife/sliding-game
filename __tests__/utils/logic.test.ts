@@ -114,12 +114,6 @@ describe("move Direction", () => {
     );
   });
 
-  test("should return same array if not swapping with a 0", () => {
-    expect(moveDirection(testData.array, 4, "top")).toStrictEqual(
-      testData.array
-    );
-  });
-
   test("should work as expected (moves in specified direction)", () => {
     expect(moveDirection(testData.array, 1, "left")).toStrictEqual([
       [1, 0, 2],

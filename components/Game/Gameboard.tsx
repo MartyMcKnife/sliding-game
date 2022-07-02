@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { ILevel } from "../../models/level";
 import { genGame, moveDirection } from "../../utils/logic";
 import GameItem from "./GameItem";
+import useKeypress from "react-use-keypress";
+import { parsedA, parsedB } from "../../utils/lookups";
 
 type Props = {
   level: ILevel;
@@ -47,16 +49,40 @@ export default function Gameboard({ level, setMoves, setSuccess }: Props) {
 
   useEffect(() => {
     if (gameBoard) {
-      if (gameBoard === solved) {
+      //We convert to string due to js wackiness
+      if (JSON.stringify(gameBoard) === JSON.stringify(solved)) {
         setSuccess(true);
       }
       if (moveItem) {
-        setMoves((m) => (m += 1));
-        setGameBoard(moveDirection(gameBoard, moveItem));
+        const oldBoard = gameBoard;
+        const newBoard = moveDirection(gameBoard, moveItem);
+
+        if (JSON.stringify(oldBoard) !== JSON.stringify(newBoard)) {
+          setMoves((m) => (m += 1));
+        }
+        setGameBoard(newBoard);
+
         setMoveItem(undefined);
       }
     }
   }, [gameBoard, setSuccess, solved, moveItem]);
+
+  useKeypress(
+    ["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown", "w", "a", "s", "d"],
+    (e: KeyboardEvent) => {
+      if (gameBoard) {
+        setMoves((m) => (m += 1));
+        //We know that we can only have key on the object, so an undefined error can be ignored
+        //@ts-ignore
+        const direction = parsedA[e.key] || parsedB[e.key];
+
+        const out = moveDirection(gameBoard, 0, direction);
+        console.log(out);
+
+        setGameBoard(out);
+      }
+    }
+  );
 
   if (gameBoard && solved && els) {
     return (
@@ -68,6 +94,7 @@ export default function Gameboard({ level, setMoves, setSuccess }: Props) {
           gridTemplateColumns: `repeat(${level.columns}, minmax(0, 1fr))`,
           gridTemplateRows: `repeat(${level.rows}, minmax(0, 1fr))`,
         }}
+        onKeyDown={(e) => e.key}
       >
         {els}
       </div>

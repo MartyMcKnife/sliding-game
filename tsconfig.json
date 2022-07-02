@@ -61,6 +61,6 @@
     "resolveJsonModule": true,
     "isolatedModules": true
   },
-  "include": ["pages", "svg.d.ts"],
+  "include": ["pages", "svg.d.ts", "keypress.d.ts"],
   "exclude": ["node_modules"]
 }
