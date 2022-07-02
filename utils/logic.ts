@@ -127,6 +127,8 @@ export const moveDirection = (
   if (elm) {
     if (element === 0 || elm.item === 0) {
       return swap(arr, itemPos, elm.position);
+    } else {
+      return arr;
     }
   } else {
     return arr;
