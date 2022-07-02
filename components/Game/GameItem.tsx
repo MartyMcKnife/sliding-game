@@ -23,7 +23,7 @@ export default function GameItem({
     <div
       className={`rounded-lg w-20 h-20 flex items-center justify-center cursor-pointer ${
         num === 0
-          ? "border-2 border-blue-600"
+          ? "border-2 border-blue-600 cursor-default"
           : isCorrect
           ? "bg-teal-700"
           : "bg-blue-700"
