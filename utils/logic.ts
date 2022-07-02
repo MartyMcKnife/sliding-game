@@ -94,7 +94,7 @@ export const findNearby = (
 export const moveDirection = (
   array: Array<Array<number>>,
   element: number,
-  direction: "top" | "down" | "left" | "right"
+  direction?: "top" | "down" | "left" | "right"
 ) => {
   //Copy array so as to not mutate the original
   const arr: Array<Array<number>> = JSON.parse(JSON.stringify(array));
@@ -102,7 +102,27 @@ export const moveDirection = (
   const itemPos = findItem(arr, element);
   const nearbyItems = findNearby(arr, itemPos);
 
-  const elm = nearbyItems[direction as keyof Nearby];
+  //Remove all null items from nearbyItems
+  const nearby = Object.fromEntries(
+    Object.entries(nearbyItems).filter(([_, v]) => v != null)
+  );
+
+  let elm: NearbyItem | null;
+
+  if (direction) {
+    elm = nearbyItems[direction as keyof Nearby];
+  } else {
+    //Find lowest item in nearbyItems
+    const lowest = Object.values(nearby).reduce((lowest, item) => {
+      if (item && item.item < lowest.item) {
+        return item;
+      } else {
+        return lowest;
+      }
+    });
+    console.log(lowest);
+    elm = lowest;
+  }
 
   if (!elm || elm.item > 0) {
     // Return unmodified array as action is illegal

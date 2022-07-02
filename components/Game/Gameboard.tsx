@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { ILevel } from "../../models/level";
-import { genGame } from "../../utils/logic";
+import { genGame, moveDirection } from "../../utils/logic";
 import GameItem from "./GameItem";
 
 type Props = {
@@ -12,31 +12,53 @@ type Props = {
 export default function Gameboard({ level, setMoves, setSuccess }: Props) {
   const [gameBoard, setGameBoard] = useState<Array<Array<number>>>();
   const [solved, setSolved] = useState<Array<Array<number>>>();
+  const [els, setEls] = useState<JSX.Element[]>();
 
-  //Have to set this client side otherwise compiler gets grumpy
+  const [moveItem, setMoveItem] = useState<number>();
+
+  //Have to set this client side otherwise compiler and renderer gets grumpy
   useEffect(() => {
-    setGameBoard(genGame(level.rows, level.columns, true));
-    setSolved(genGame(level.rows, level.columns, false));
+    const gameBoardInit = genGame(level.rows, level.columns, true);
+    const gameBoardSolved = genGame(level.rows, level.columns, false);
+    setGameBoard(gameBoardInit);
+    setSolved(gameBoardSolved);
   }, []);
 
+  //Updated our elements everytime the board changes
   useEffect(() => {
-    if (gameBoard === solved) {
-      setSuccess(true);
+    if (gameBoard && solved) {
+      setEls(
+        gameBoard
+          .map((row) => {
+            return row.map((col, i) => (
+              <GameItem
+                key={col + " Postion #" + i}
+                num={col}
+                gameBoard={gameBoard}
+                reference={solved}
+                setMoveItem={setMoveItem}
+              />
+            ));
+          })
+          .flat()
+      );
     }
-  }, [gameBoard, setSuccess, solved]);
+  }, [gameBoard]);
 
-  if (gameBoard && solved) {
-    let els = gameBoard.map((row) => {
-      return row.map((col, i) => (
-        <GameItem
-          key={col + " Postion #" + i}
-          num={col}
-          gameBoard={gameBoard}
-          reference={solved}
-        />
-      ));
-    });
+  useEffect(() => {
+    if (gameBoard) {
+      if (gameBoard === solved) {
+        setSuccess(true);
+      }
+      if (moveItem) {
+        setMoves((m) => (m += 1));
+        setGameBoard(moveDirection(gameBoard, moveItem));
+        setMoveItem(undefined);
+      }
+    }
+  }, [gameBoard, setSuccess, solved, moveItem]);
 
+  if (gameBoard && solved && els) {
     return (
       <div
         className={`p-4 rounded-lg shadow-md bg-white mt-6 grid gap-4 w-max mx-auto`}
@@ -47,7 +69,7 @@ export default function Gameboard({ level, setMoves, setSuccess }: Props) {
           gridTemplateRows: `repeat(${level.rows}, minmax(0, 1fr))`,
         }}
       >
-        {els.flat()}
+        {els}
       </div>
     );
   } else {

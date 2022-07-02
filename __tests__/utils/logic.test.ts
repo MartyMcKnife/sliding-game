@@ -127,6 +127,26 @@ describe("move Direction", () => {
       [6, 7, 8],
     ]);
   });
+
+  test("should work if direction is not specified", () => {
+    expect(moveDirection(testData.array, 1)).toStrictEqual([
+      [1, 0, 2],
+      [3, 4, 5],
+      [6, 7, 8],
+    ]);
+  });
+  test("should move right", () => {
+    expect(
+      moveDirection(
+        [
+          [1, 0, 2],
+          [3, 4, 5],
+          [6, 7, 8],
+        ],
+        1
+      )
+    ).toStrictEqual(testData.array);
+  });
 });
 
 describe("shuffle", () => {
