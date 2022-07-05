@@ -1,5 +1,4 @@
 import React, { useRef, ReactElement } from "react";
-import { ILeaderboard } from "../../models/leaderboard";
 import { motion } from "framer-motion";
 import useOnClickOutside from "use-onclickoutside";
 import Button from "./Button";
@@ -38,7 +37,7 @@ export default function Modal({
         {children}
         <Button
           onClick={onClose}
-          className="ml-auto block px-3 py-1 rounded-lg bg-red-600 text-white font-bold text-sm"
+          className="ml-auto block px-3 py-1 rounded-lg bg-red-600 text-white font-bold text-sm mt-2"
           text="Close"
         />
 

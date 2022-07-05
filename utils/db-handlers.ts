@@ -42,7 +42,12 @@ export const createLevel = async (
 
 export const getLeaderboard = async () => {
   await dbConnect();
-  return await Leaderboard.find();
+  const leadboard = await Leaderboard.find();
+  console.log(
+    leadboard,
+    leadboard.sort((a, b) => b.score - a.score)
+  );
+  return leadboard.sort((a, b) => b.score - a.score);
 };
 
 export const addToBoard = async (

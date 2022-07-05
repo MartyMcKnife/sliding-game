@@ -9,9 +9,15 @@ type Props = {
   level: ILevel;
   setMoves: React.Dispatch<React.SetStateAction<number>>;
   setSuccess: React.Dispatch<React.SetStateAction<boolean>>;
+  success: boolean;
 };
 
-export default function Gameboard({ level, setMoves, setSuccess }: Props) {
+export default function Gameboard({
+  level,
+  setMoves,
+  setSuccess,
+  success,
+}: Props) {
   const [gameBoard, setGameBoard] = useState<Array<Array<number>>>();
   const [solved, setSolved] = useState<Array<Array<number>>>();
   const [els, setEls] = useState<JSX.Element[]>();
@@ -70,7 +76,7 @@ export default function Gameboard({ level, setMoves, setSuccess }: Props) {
   useKeypress(
     ["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown", "w", "a", "s", "d"],
     (e: KeyboardEvent) => {
-      if (gameBoard) {
+      if (gameBoard && !success) {
         setMoves((m) => (m += 1));
         //We know that we can only have key on the object, so an undefined error can be ignored
         //@ts-ignore

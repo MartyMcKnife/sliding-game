@@ -1,21 +1,12 @@
-import React, { useEffect } from "react";
+import React from "react";
 import ScoreInfo from "./ScoreInfo";
 
 type Props = {
   time: number;
   moves: number;
-  setTime: React.Dispatch<React.SetStateAction<number>>;
 };
 
-export default function ScoreContainer({ time, moves, setTime }: Props) {
-  useEffect(() => {
-    //Increase our time every second
-    const token = setInterval(() => {
-      setTime((t) => t + 1);
-    }, 1000);
-    //Clean up our timer so we don't cause a memory leak
-    return () => clearInterval(token);
-  }, [time, setTime]);
+export default function ScoreContainer({ time, moves }: Props) {
   return (
     <section
       id="moves-and-time"
