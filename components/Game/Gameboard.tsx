@@ -4,9 +4,11 @@ import { genGame, moveDirection } from "../../utils/logic";
 import GameItem from "./GameItem";
 import useKeypress from "react-use-keypress";
 import { parsedA, parsedB } from "../../utils/lookups";
+import { Images } from "utils/image";
 
 type Props = {
   level: ILevel;
+  images?: Images[][];
   setMoves: React.Dispatch<React.SetStateAction<number>>;
   setSuccess: React.Dispatch<React.SetStateAction<boolean>>;
   success: boolean;
@@ -17,6 +19,7 @@ export default function Gameboard({
   setMoves,
   setSuccess,
   success,
+  images,
 }: Props) {
   const [gameBoard, setGameBoard] = useState<Array<Array<number>>>();
   const [solved, setSolved] = useState<Array<Array<number>>>();
@@ -37,14 +40,20 @@ export default function Gameboard({
     if (gameBoard && solved) {
       setEls(
         gameBoard
-          .map((row) => {
-            return row.map((col, i) => (
+          .map((row, i) => {
+            return row.map((col) => (
               <GameItem
                 key={col + " Postion #" + i}
                 num={col}
                 gameBoard={gameBoard}
                 reference={solved}
                 setMoveItem={setMoveItem}
+                {...(images && {
+                  //Find element in images which has the same number
+                  image: images
+                    .map((imgR) => imgR.find((imgC) => imgC.num === col))
+                    .filter((img) => img !== undefined)[0],
+                })}
               />
             ));
           })

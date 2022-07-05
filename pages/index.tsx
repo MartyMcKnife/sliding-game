@@ -10,15 +10,18 @@ import Gameboard from "../components/Game/Gameboard";
 import Success from "../components/Game/Success";
 import { AnimatePresence } from "framer-motion";
 import Footer from "../components/Footer/Footer";
+import { getImg, processImage, Images } from "../utils/image";
 
 interface Props {
   leaderboardU: string;
   settingsU: string;
+  imagesU?: string;
 }
 
-const Home: NextPage<Props> = ({ leaderboardU, settingsU }) => {
+const Home: NextPage<Props> = ({ leaderboardU, settingsU, imagesU }) => {
   const leaderboard: ILeaderboard[] = JSON.parse(leaderboardU);
   const settings: ILevel = JSON.parse(settingsU);
+  const images: Images[][] | undefined = imagesU && JSON.parse(imagesU);
 
   const [moves, setMoves] = useState(0);
   const [time, setTime] = useState(0);
@@ -52,6 +55,7 @@ const Home: NextPage<Props> = ({ leaderboardU, settingsU }) => {
             setMoves={setMoves}
             setSuccess={setSuccess}
             success={success}
+            images={images}
           />
           <AnimatePresence>
             {success && (
@@ -81,12 +85,23 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       await getLevel(context.query.id)
     : await createLevel(4, 4);
 
-  return {
-    props: {
-      leaderboardU: JSON.stringify(leaderboard),
-      settingsU: JSON.stringify(settings),
-    },
-  };
+  if (settings?.image) {
+    const images = await processImage(await getImg(settings.image));
+    return {
+      props: {
+        leaderboardU: JSON.stringify(leaderboard),
+        settingsU: JSON.stringify(settings),
+        imagesU: JSON.stringify(images),
+      },
+    };
+  } else {
+    return {
+      props: {
+        leaderboardU: JSON.stringify(leaderboard),
+        settingsU: JSON.stringify(settings),
+      },
+    };
+  }
 };
 
 export default Home;

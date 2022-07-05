@@ -16,7 +16,7 @@ export default function Share({ levelID }: Props) {
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      setUrl("https://" + window.location.hostname + "?level=" + levelID);
+      setUrl("https://" + window.location.hostname + "?id=" + levelID);
     }
   }, []);
 
