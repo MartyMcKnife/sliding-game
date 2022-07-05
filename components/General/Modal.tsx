@@ -23,7 +23,7 @@ export default function Modal({
   return (
     <motion.section
       id="modal"
-      className="fixed bg-black bg-opacity-60 flex items-center justify-center top-0 left-0 w-full h-full"
+      className="fixed bg-black bg-opacity-60 flex items-center justify-center top-0 left-0 w-full h-full z-10"
       exit={{ opacity: 0 }}
     >
       <motion.div

@@ -83,7 +83,6 @@ export default function Gameboard({
         const direction = parsedA[e.key] || parsedB[e.key];
 
         const out = moveDirection(gameBoard, 0, direction);
-        console.log(out);
 
         setGameBoard(out);
       }

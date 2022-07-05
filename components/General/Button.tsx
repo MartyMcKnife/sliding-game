@@ -17,7 +17,7 @@ export default function Button({
 }: Props) {
   return (
     <button
-      className={`${className} rounded-lg p-3 flex justify-between items-center gap-2 font-bold text-xl ${
+      className={`${className} rounded-xl p-3 flex justify-between items-center gap-2 font-bold text-xl transform hover:scale-105 transition-all ${
         loading ? "opacity-60 cursor-not-allowed" : ""
       }`}
       {...(!loading && { onClick: onClick })}

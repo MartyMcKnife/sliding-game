@@ -9,6 +9,7 @@ import { useState, useEffect } from "react";
 import Gameboard from "../components/Game/Gameboard";
 import Success from "../components/Game/Success";
 import { AnimatePresence } from "framer-motion";
+import Footer from "../components/Footer/Footer";
 
 interface Props {
   leaderboardU: string;
@@ -66,6 +67,7 @@ const Home: NextPage<Props> = ({ leaderboardU, settingsU }) => {
           </AnimatePresence>
         </section>
       </main>
+      <Footer level={settings} />
     </div>
   );
 };

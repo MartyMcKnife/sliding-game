@@ -6,7 +6,6 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  console.log(req.method, req.method === "POST");
   if (req.method === "POST") {
     const { username, time, moves, id } = req.body as {
       [key: string]: string;

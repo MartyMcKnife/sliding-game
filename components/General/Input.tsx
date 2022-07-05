@@ -5,7 +5,7 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
   buttonText: string;
   buttonColor: string;
   disabled: boolean;
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onClick: () => void;
   loading?: boolean;
 }
