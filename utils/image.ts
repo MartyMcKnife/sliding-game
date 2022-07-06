@@ -32,7 +32,7 @@ export const processImage = async (img: Buffer) => {
   //Create a new image with the correct size
   //It should take that part of the image that we want to use
   let arr: Images[][] = [];
-  let total = rows * cols;
+  let total = 0;
   for (let i = 0; i < rows; i++) {
     let tempArr: Images[] = [];
     for (let j = 0; j < cols; j++) {
@@ -48,7 +48,7 @@ export const processImage = async (img: Buffer) => {
       //and a logically array which will just have the numbers
       const num = total;
       tempArr.push({ num, imgBuf });
-      total--;
+      total += 1;
     }
     arr.push(tempArr);
   }

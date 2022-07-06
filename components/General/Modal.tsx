@@ -30,18 +30,20 @@ export default function Modal({
         initial={{ y: "-100vh", opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         exit={{ y: "-100vh", opacity: 0 }}
-        className="bg-white max-w-xl w-full h-auto rounded-lg py-4 px-4"
+        className="bg-white max-w-2xl w-full max-h-[95vh] rounded-lg p-4 overflow-y-auto "
         ref={wrapRef}
       >
         <h1 className="font-bold text-4xl">{title}</h1>
         {children}
-        <Button
-          onClick={onClose}
-          className="ml-auto block px-3 py-1 rounded-lg bg-red-600 text-white font-bold text-sm mt-2"
-          text="Close"
-        />
+        <div className="flex justify-end items-center mt-2">
+          <Button
+            onClick={onClose}
+            className="ml-auto px-3 py-1 rounded-lg bg-red-600 text-white font-bold text-sm"
+            text="Close"
+          />
 
-        {confirmButton}
+          {confirmButton}
+        </div>
       </motion.div>
     </motion.section>
   );
