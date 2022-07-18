@@ -33,8 +33,9 @@ export default function GameOptions({ level }: Props) {
           imageURL: img,
         })
       ).data.id;
-      console.log(id);
-      router.push(`/?id=${id}`);
+      router.push(`/?id=${id}`, undefined, { shallow: false });
+      // router.reload();
+
       setLoading(false);
     } catch (err) {
       toast.error("Unexpected error occurred!", { theme: "colored" });

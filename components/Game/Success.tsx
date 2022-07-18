@@ -54,7 +54,7 @@ export default function Success({ onClose, time, moves, level }: Props) {
         theme: "colored",
       });
     }
-    // Router.reload();
+    Router.reload();
   };
 
   return (

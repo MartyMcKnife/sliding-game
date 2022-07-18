@@ -40,7 +40,7 @@ export default function UnsplashContainer({ setImage, curImg }: Props) {
           {images?.results.map((image) => (
             <ImageItem
               key={image.id}
-              imageURL={image.urls.thumb}
+              imageURL={image.urls.small}
               imageName={image.description}
               author={image.user.name}
               authorLink={image.user.portfolio_url}

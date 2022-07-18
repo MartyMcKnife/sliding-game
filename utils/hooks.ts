@@ -1,6 +1,7 @@
 import { UnsplashImage } from "./../interfaces/unsplash";
 import axios from "axios";
 import useSWR from "swr";
+import { useRouter } from "next/router";
 
 const fetcher = (url: string) => axios.get(url).then((res) => res.data);
 
