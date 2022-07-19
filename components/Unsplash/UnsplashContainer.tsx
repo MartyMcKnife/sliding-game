@@ -13,8 +13,8 @@ type Props = {
 
 export default function UnsplashContainer({ setImage, curImg }: Props) {
   const [query, setQuery] = useState("");
-  const [index, setIndex] = useState(0);
-  const { images, isLoading, isError } = usePhotos(index, query);
+  // const [index, setIndex] = useState(0);
+  const { images, isLoading, isError } = usePhotos(0, query);
 
   useEffect(() => {
     if (isError) {
