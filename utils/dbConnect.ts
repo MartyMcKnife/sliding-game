@@ -7,7 +7,7 @@ const dbConnect = async () => {
 
   const uri = process.env.mongo_uri;
   if (uri) {
-    console.log("Attempting to connect to  Mongoose");
+    console.log("Attempting to connect to  Mongoose at" + uri);
 
     const connection = mongoose.connect(uri, {
       sslValidate: false,
