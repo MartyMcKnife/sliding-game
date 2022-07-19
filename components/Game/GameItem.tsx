@@ -40,17 +40,16 @@ export default function GameItem({
         setMoveItem(num);
       }}
       animate={num === 0 ? "empty" : isCorrect ? "correct" : "incorrect"}
-      initial={{ scale: 0 }}
       variants={{
         correct: {
           backgroundColor: "#0f766e",
           backgroundImage: `url(${url})`,
-          scale: 1,
+          scale: [0, 1],
         },
         incorrect: {
           backgroundColor: "#1d4ed8",
           backgroundImage: `url(${url})`,
-          scale: 1,
+          scale: [0, 1],
         },
         empty: {
           borderStyle: "solid",

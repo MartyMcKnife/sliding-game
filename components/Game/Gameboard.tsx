@@ -86,12 +86,18 @@ export default function Gameboard({
     ["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown", "w", "a", "s", "d"],
     (e: KeyboardEvent) => {
       if (gameBoard && !success) {
-        setMoves((m) => (m += 1));
         //We know that we can only have key on the object, so an undefined error can be ignored
         //@ts-ignore
         const direction = parsedA[e.key] || parsedB[e.key];
 
+        //Keep ref to old gameboard
+        const oldBoard = gameBoard;
         const out = moveDirection(gameBoard, 0, direction);
+
+        //Increase our moves only if the board has changed
+        if (JSON.stringify(oldBoard) !== JSON.stringify(out)) {
+          setMoves((m) => (m += 1));
+        }
 
         setGameBoard(out);
       }
