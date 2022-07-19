@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Button from "../General/Button";
 import { FaCog } from "react-icons/fa";
 import Modal from "../General/Modal";
