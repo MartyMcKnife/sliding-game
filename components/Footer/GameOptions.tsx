@@ -34,7 +34,7 @@ export default function GameOptions({ level }: Props) {
         })
       ).data.id;
       router.push(`/?id=${id}`, undefined, { shallow: false });
-      // router.reload();
+      router.replace(router.asPath);
 
       setLoading(false);
     } catch (err) {
