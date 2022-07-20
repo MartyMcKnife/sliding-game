@@ -1,16 +1,16 @@
 import type { NextPage, GetServerSideProps } from "next";
-import { createLevel, getLeaderboard } from "../utils/db-handlers";
-import Header from "../components/Head/Header";
-import LeaderboardButton from "../components/Leaderboard/LearboardButton";
-import ScoreContainer from "../components/ScoreInfo/ScoreContainer";
+import { getLeaderboard, getLevel } from "../../utils/db-handlers";
+import Header from "../../components/Head/Header";
+import LeaderboardButton from "../../components/Leaderboard/LearboardButton";
+import ScoreContainer from "../../components/ScoreInfo/ScoreContainer";
 import { ILeaderboard } from "models/leaderboard";
 import { ILevel } from "models/level";
 import { useState, useEffect } from "react";
-import Gameboard from "../components/Game/Gameboard";
-import Success from "../components/Game/Success";
+import Gameboard from "../../components/Game/Gameboard";
+import Success from "../../components/Game/Success";
 import { AnimatePresence } from "framer-motion";
-import Footer from "../components/Footer/Footer";
-import { Images } from "../utils/image";
+import Footer from "../../components/Footer/Footer";
+import { getImg, processImage, Images } from "../../utils/image";
 
 interface Props {
   leaderboardU: string;
@@ -18,7 +18,7 @@ interface Props {
   imagesU?: string;
 }
 
-const Home: NextPage<Props> = ({ leaderboardU, settingsU, imagesU }) => {
+const CustID: NextPage<Props> = ({ leaderboardU, settingsU, imagesU }) => {
   const leaderboard: ILeaderboard[] = JSON.parse(leaderboardU);
   const settings: ILevel = JSON.parse(settingsU);
   const images: Images[][] | undefined = imagesU && JSON.parse(imagesU);
@@ -80,14 +80,32 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const leaderboard = await getLeaderboard();
   // Check if we have been given a board id
   // Otherwise create a default board
-  const settings = await createLevel(4, 4);
+  if (!context.query.id) {
+    throw new Error("Missing ID");
+  }
+  const settings = await getLevel(context.query.id as string);
 
-  return {
-    props: {
-      leaderboardU: JSON.stringify(leaderboard),
-      settingsU: JSON.stringify(settings),
-    },
-  };
+  if (!settings) {
+    throw new Error("No Level for ID");
+  }
+
+  if (settings?.image) {
+    const images = await processImage(await getImg(settings.image));
+    return {
+      props: {
+        leaderboardU: JSON.stringify(leaderboard),
+        settingsU: JSON.stringify(settings),
+        imagesU: JSON.stringify(images),
+      },
+    };
+  } else {
+    return {
+      props: {
+        leaderboardU: JSON.stringify(leaderboard),
+        settingsU: JSON.stringify(settings),
+      },
+    };
+  }
 };
 
-export default Home;
+export default CustID;

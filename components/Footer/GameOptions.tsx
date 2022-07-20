@@ -33,7 +33,7 @@ export default function GameOptions({ level }: Props) {
           imageURL: img,
         })
       ).data.id;
-      router.push(`/?id=${id}`, undefined, { shallow: false });
+      router.push(`/id/${id}`, undefined, { shallow: false });
       router.replace(router.asPath);
 
       setLoading(false);

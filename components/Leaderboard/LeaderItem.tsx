@@ -12,7 +12,7 @@ export default function LeaderItem({ username, score, levelID }: Props) {
       <p>{username}</p>
       <p>{score.toLocaleString()}</p>
       <a
-        href={`/?id=${levelID}`}
+        href={`/id//${levelID}`}
         target="_blank"
         rel="noreferrer"
         className="italic underline"
