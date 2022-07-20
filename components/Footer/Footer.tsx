@@ -10,7 +10,7 @@ type Props = {
 
 export default function Footer({ level }: Props) {
   return (
-    <footer className="flex justify-between items-center max-w-xl mx-auto mt-4">
+    <footer className="flex justify-between items-center max-w-xl mx-auto my-4">
       <section id="left-footer" className="flex space-x-2">
         <GameOptions level={level} />
         <Share levelID={level.levelID} />
