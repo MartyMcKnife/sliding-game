@@ -55,7 +55,7 @@ export default function GameOptions({ level }: Props) {
               <Button
                 onClick={handleSubmit}
                 text="Submit"
-                className="bg-green-500 shadow-lg text-white px-3 py-1 ml-4"
+                className="bg-green-500 text-white px-3 py-1 ml-4"
                 loading={loading}
               />
             }
@@ -85,7 +85,7 @@ export default function GameOptions({ level }: Props) {
 
       <Button
         text="Settings"
-        className="bg-green-500 text-white"
+        className="bg-green-500 text-white shadow-lg"
         icon={<FaCog />}
         onClick={() => setOpen(!open)}
       />
