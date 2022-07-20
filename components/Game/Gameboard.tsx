@@ -5,6 +5,7 @@ import GameItem from "./GameItem";
 import useKeypress from "react-use-keypress";
 import { parsedA, parsedB } from "../../utils/lookups";
 import { Images } from "utils/image";
+import { LayoutGroup } from "framer-motion";
 
 type Props = {
   level: ILevel;
@@ -116,7 +117,7 @@ export default function Gameboard({
         }}
         onKeyDown={(e) => e.key}
       >
-        {els}
+        <LayoutGroup> {els}</LayoutGroup>
       </div>
     );
   } else {
