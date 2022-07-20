@@ -76,7 +76,7 @@ const Home: NextPage<Props> = ({ leaderboardU, settingsU, imagesU }) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export const getServerSideProps: GetServerSideProps = async () => {
   const leaderboard = await getLeaderboard();
   // Check if we have been given a board id
   // Otherwise create a default board
