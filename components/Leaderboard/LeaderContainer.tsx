@@ -25,7 +25,7 @@ export default function LeaderContainer({ leaderboard, setOpen }: Props) {
         <header className="flex justify-between items-center w-full font-bold text-gray-600">
           <h2>Name</h2> <h2 className="mr-4">Score</h2> <h2>Link</h2>
         </header>{" "}
-        <div className="grid-cols-3 grid gap-2 place-items-stretch">{els}</div>
+        <div className="grid-cols-3 grid gap-2">{els}</div>
       </section>
     </Modal>
   );

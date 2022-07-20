@@ -9,13 +9,13 @@ type Props = {
 export default function LeaderItem({ username, score, levelID }: Props) {
   return (
     <>
-      <p>{username}</p>
-      <p>{score.toLocaleString()}</p>
+      <p className="place-self-start">{username}</p>
+      <p className="place-self-center">{score.toLocaleString()}</p>
       <a
         href={`/id//${levelID}`}
         target="_blank"
         rel="noreferrer"
-        className="italic underline"
+        className="italic underline place-self-end"
       >
         View Level
       </a>
