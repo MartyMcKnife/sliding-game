@@ -8,7 +8,7 @@ type Props = {
 
 export default function LeaderItem({ username, score, levelID }: Props) {
   return (
-    <div className="flex justify-between items-center w-full text-sm">
+    <>
       <p>{username}</p>
       <p>{score.toLocaleString()}</p>
       <a
@@ -19,6 +19,6 @@ export default function LeaderItem({ username, score, levelID }: Props) {
       >
         View Level
       </a>
-    </div>
+    </>
   );
 }
