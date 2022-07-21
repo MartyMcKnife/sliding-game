@@ -5,12 +5,16 @@ type Props = {
   num: number;
   setNum: React.Dispatch<React.SetStateAction<number>>;
   className?: string;
+  max?: number;
 };
 
-export default function UpDown({ num, setNum, className }: Props) {
+export default function UpDown({ num, setNum, className, max = 15 }: Props) {
   useEffect(() => {
     if (num < 1) {
       setNum(1);
+    }
+    if (num > max) {
+      setNum(max);
     }
   }, [num]);
 
