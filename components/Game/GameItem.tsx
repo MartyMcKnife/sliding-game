@@ -35,7 +35,9 @@ export default function GameItem({
   }, []);
   return (
     <motion.div
-      className={`rounded-lg w-20 h-20 flex items-center justify-center cursor-pointer`}
+      className={`rounded-lg w-20 h-20 flex items-center justify-center cursor-pointer ${
+        num === 0 && "border-2 border-blue-500 cursor-default"
+      }`}
       onClick={() => {
         setMoveItem(num);
       }}
@@ -44,23 +46,20 @@ export default function GameItem({
         correct: {
           backgroundColor: "#0f766e",
           backgroundImage: `url(${url})`,
-          scale: [0, 1],
         },
         incorrect: {
           backgroundColor: "#1d4ed8",
           backgroundImage: `url(${url})`,
-          scale: [0, 1],
         },
         empty: {
           borderStyle: "solid",
           borderWidth: "2px",
           borderColor: "#1d4ed8",
           cursor: "default",
-          scale: 1,
         },
       }}
-      transition={{ duration: 0.2 }}
-      style={{}}
+      transition={{ duration: 0.1 }}
+      layoutId={num.toLocaleString()}
     >
       {num > 0 && <h1 className="text-4xl text-white font-semibold">{num}</h1>}
     </motion.div>
