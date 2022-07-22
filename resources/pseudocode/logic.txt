@@ -29,26 +29,27 @@ FUNCTION FindNearby takes array, itemPosition
     return [iLeft, iRight, iTop, iBottom]
 
 //Update 2-D Array
-FUNCTION moveDirection takes array, element
+FUNCTION moveDirection takes array, element, direction
     index = CALL FindItem with array, element
             
     items = CALL FindNearby with array, index
 
-    FIND LOWEST from items.item
+    IF direction
+        elm = items[direction]
+    ELSE
+        elm = FIND LOWEST from items.item
     
-    IF itemsLowest.item > 0
-        return array
-    
-    CALL Swap with array, itemsLowest.position, index
+    IF elm > 0
+        array = CALL Swap with array, itemsLowest.position, index
     RETURN array
 
 //Shuffle 2D Array
-FUNCTION shuffle2D takes array, times (default = 40)
+FUNCTION shuffle2D takes array, times (default = 500)
     FOR each time in times
             index = CALL FindItem with array, 0
             nearby = CALL FindNearby with array, index
 
-            PICK RANDOM from nearby
+            random = nearby[RANDOM NUMBER * nearby.length]
 
             CALL Swap with array, nearby[RANDOM].position, index
 
@@ -60,15 +61,15 @@ FUNCTION shuffle2D takes array, times (default = 40)
 //This will also ensure that game is solvable, and auto-solve can be implemented at a later point
 
 FUNCTION genGame takes rows, cols
-    total = rows * cols
+    start = 1
 
     arr = []
 
     FOR numR in rows
         tempArr = []
         FOR numC in cols
-            INSERT total to tempArr
-            total = total - 1
+            INSERT start to tempArr
+            start = start + 1
         INSERT tempArr to arr
     
     CALL shuffle2D with arr
