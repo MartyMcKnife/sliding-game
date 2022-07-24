@@ -53,13 +53,13 @@ END MODULE
 
 //Shuffle 2D Array
 MODULE shuffle2D takes array, times (default = 500)
-    FOR each time in times
+    FOR time in times
             index = CALL FindItem with array, 0
             nearby = CALL FindNearby with array, index
 
             random = nearby[RANDOM NUMBER * nearby.length]
 
-            CALL Swap with array, nearby[RANDOM].position, index
+            CALL Swap with array, random.position, index
     END FOR
 
     RETURN array
