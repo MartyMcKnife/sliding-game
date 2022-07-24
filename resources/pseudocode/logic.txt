@@ -60,7 +60,7 @@ FUNCTION shuffle2D takes array, times (default = 500)
 //Rather than generating based of array, we will do a bunch of random moves
 //This will also ensure that game is solvable, and auto-solve can be implemented at a later point
 
-FUNCTION genGame takes rows, cols
+FUNCTION genGame takes rows, cols, shuffle
     start = 1
 
     arr = []
@@ -71,8 +71,12 @@ FUNCTION genGame takes rows, cols
             INSERT start to tempArr
             start = start + 1
         INSERT tempArr to arr
+
+    array[LENGTH array - 1][LENGTH array[0] - 1] = 0
+
+    IF shuffle
+        CALL shuffle2D with arr
     
-    CALL shuffle2D with arr
-    return arr
+    RETURN arr
 
 

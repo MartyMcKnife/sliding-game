@@ -161,6 +161,7 @@ export const genGame = (rows: number, columns: number, shuffle = true) => {
   let start = 1;
   let array: Array<Array<number>> = [];
 
+  //Loop through each row and column, and generate the game
   for (let i = rows - 1; i >= 0; i--) {
     let tempArr: Array<number> = [];
     for (let j = columns - 1; j >= 0; j--) {
