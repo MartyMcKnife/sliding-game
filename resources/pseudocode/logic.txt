@@ -5,46 +5,54 @@ array looks like
 [7,8,9]]
 
 //Swap Elements in Multidimensional Array
-FUNCTION Swap takes array, position1, position2
+MODULE Swap takes array, position1, position2
     temp = array[position1[0]][position1[1]]
     array[position1[0]][position1[1]]] = array[position2[0]][position2[1]]
     array[position2[0]][position2[1]] = temp
-    return array
+    RETURN array
+END MODULE
 
 //Find item coords
-FUNCTION FindItem takes array, item
+MODULE FindItem takes array, item
     index = [0, 0]
     FOR each row in array
         FOR each item in sub array
             IF num = element
                 index = [rowIndex, itemIndex]
-    return index
+            END IF
+        END FOR
+    END FOR
+    RETURN index
+END MODULE
 
-FUNCTION FindNearby takes array, itemPosition
+MODULE FindNearby takes array, itemPosition
     iLeft = {item: array[index[0]][index[1] - 1], position: [[index[0]], [index[1] - 1]]}
     iRight = {item: array[index[0]][index[1] + 1], position: [[index[0]], [index[1] + 1]]}
     iTop = {item: array[index[0] - 1][index[1]], position: [[index[0] - 1], [index[1]]}
     iBottom = {item: array[index[0] + 1][index[1]], position: [[index[0] + 1], [index[1]]}
 
-    return [iLeft, iRight, iTop, iBottom]
+    RETURN [iLeft, iRight, iTop, iBottom]
+END MODULE
 
 //Update 2-D Array
-FUNCTION moveDirection takes array, element, direction
+MODULE moveDirection takes array, element, direction
     index = CALL FindItem with array, element
             
     items = CALL FindNearby with array, index
 
     IF direction
-        elm = items[direction]
+        elm = FIND element from items with corresponding direction
     ELSE
         elm = FIND LOWEST from items.item
     
     IF elm > 0
         array = CALL Swap with array, itemsLowest.position, index
+    END IF
     RETURN array
+END MODULE
 
 //Shuffle 2D Array
-FUNCTION shuffle2D takes array, times (default = 500)
+MODULE shuffle2D takes array, times (default = 500)
     FOR each time in times
             index = CALL FindItem with array, 0
             nearby = CALL FindNearby with array, index
@@ -52,15 +60,17 @@ FUNCTION shuffle2D takes array, times (default = 500)
             random = nearby[RANDOM NUMBER * nearby.length]
 
             CALL Swap with array, nearby[RANDOM].position, index
+    END FOR
 
     RETURN array
+END MODULE
     
 
 //Generate Game
 //Rather than generating based of array, we will do a bunch of random moves
 //This will also ensure that game is solvable, and auto-solve can be implemented at a later point
 
-FUNCTION genGame takes rows, cols, shuffle
+MODULE genGame takes rows, cols, shuffle
     start = 1
 
     arr = []
@@ -70,13 +80,17 @@ FUNCTION genGame takes rows, cols, shuffle
         FOR numC in cols
             INSERT start to tempArr
             start = start + 1
+        END FOR
         INSERT tempArr to arr
+    END FOR
 
     array[LENGTH array - 1][LENGTH array[0] - 1] = 0
 
     IF shuffle
         CALL shuffle2D with arr
-    
+    END IF 
+
     RETURN arr
 
+END MODULE
 
