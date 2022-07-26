@@ -132,7 +132,7 @@ export const moveDirection = (
   }
 };
 
-export const shuffle2DArray = (array: Array<Array<number>>, times = 500) => {
+export const shuffle2DArray = (array: Array<Array<number>>, times = 5000) => {
   //Copy array - we let this be mutable as we are changing it 50 times
   let arr: Array<Array<number>> = JSON.parse(JSON.stringify(array));
 
