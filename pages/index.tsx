@@ -25,12 +25,21 @@ const Home: NextPage<Props> = ({ leaderboardU, settingsU, imagesU }) => {
 
   const [moves, setMoves] = useState(0);
   const [time, setTime] = useState(0);
+  const [startTime, setStartTime] = useState(false);
   const [success, setSuccess] = useState(false);
+
+  useEffect(() => {
+    if (moves >= 0) {
+      setStartTime(true);
+    }
+  }, [moves]);
 
   useEffect(() => {
     //Increase our time every second
     const token = setInterval(() => {
-      setTime((t) => t + 1);
+      if (startTime) {
+        setTime((t) => t + 1);
+      }
     }, 1000);
     if (success) {
       //Stop timing if we win
