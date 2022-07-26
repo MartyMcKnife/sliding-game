@@ -37,9 +37,7 @@ const Home: NextPage<Props> = ({ leaderboardU, settingsU, imagesU }) => {
   useEffect(() => {
     //Increase our time every second
     const token = setInterval(() => {
-      if (startTime) {
-        setTime((t) => t + 1);
-      }
+      setTime((t) => t + 1);
     }, 1000);
     if (success) {
       //Stop timing if we win
